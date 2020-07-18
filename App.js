@@ -3,8 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View, Image, ImageBackground, ScrollView, TouchableHighlight, Modal, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import axios from 'axios';
 
+
 export default function App() {
   const [characters, setCharacters] = useState([]);
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState({});
+
 
   useEffect(() => {
     getBreakingBad();
@@ -16,6 +20,11 @@ export default function App() {
       .catch(err => console.log(err))
   }
 
+  const searchBreakingBad = () => {
+    axios.get(`https://www.breakingbadapi.com/api/characters?name=${search}`)
+    .then(result => console.log("walter !!!!!! ", result))
+    .catch(err => console.log(err))
+  }
 
   return (
     <ImageBackground style={styles.container} resizeMode={'stretch'} 
@@ -27,16 +36,19 @@ export default function App() {
         <TextInput
           style={styles.searchBox}
           placeholder="I am the one who knocks!"
+          onChangeText={text => setSearch(text)}
+          onSubmitEditing={searchBreakingBad()}
+          value={search}
         />
 
         <ScrollView>
           {characters ?
             characters.map((char, index) => {
               return (
-                <View key={char.char_id}>
+                <TouchableHighlight key={char.char_id}>
                   <Image style={styles.poster} source={{ uri: char.img }} />
                   <Text style={styles.heading} >{char.name}</Text>
-                </View>
+                </TouchableHighlight>
               )
             }) : null
           }
@@ -58,7 +70,8 @@ const styles = StyleSheet.create({
   titleImg: {
     width: 220,
     height: 100,
-    alignSelf:'center'
+    alignSelf:'center',
+    margin: 10
   },
   center: {
     textAlign:'center',
@@ -80,57 +93,19 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#D5A30F',
     marginBottom: 10,
-    width: 380,
+    width: 250,
+    textAlign:'center',
+    alignSelf:'center',
     
   },
   poster: {
-    width: 380,
-    height: 500,
+    width: 250,
+    height: 350,
     resizeMode: 'cover',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     marginTop: 10,
-  },
-
-  // popup *****************
-  popup: {
-    flex: 1,
-    backgroundColor: '#282C35',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5,
-  },
-  popPoster: {
-    width: 300,
-    height: 400,
-    resizeMode: 'cover',
-  },
-  poptitle: {
-    fontSize: 25,
-    fontWeight: '700',
-    color: 'white',
-    paddingHorizontal: 5,
-    padding: 10,
-  },
-  rating: {
-    fontSize: 20,
-    fontWeight: '500',
-    color: 'white',
-    padding: 5,
-  },
-  writting: {
-    fontSize: 20,
-    fontWeight: '300',
-    color: 'white',
-    paddingHorizontal: 10,
-    padding: 5,
-  },
-  closeBtn: {
-    padding: 20,
-    fontSize: 20,
-    color: 'white',
-    fontWeight: '700',
-    backgroundColor: '#FF9900',
-    margin: 10,
+    textAlign:'center',
+    alignSelf:'center'
   },
 });

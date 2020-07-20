@@ -1,10 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Modal, Text, TextInput, View, Image, ImageBackground, ScrollView, TouchableHighlight, FlatList, TouchableOpacity, SafeAreaView, Button } from 'react-native';
+import { StyleSheet, Modal, Text, TextInput, View, Image, ImageBackground, ScrollView, TouchableHighlight, TouchableOpacity, SafeAreaView } from 'react-native';
 import axios from 'axios';
 import PopUp from './PopUp'
-import { Ionicons } from "@expo/vector-icons";
-
 
 export default function App() {
   const [characters, setCharacters] = useState([]);
@@ -60,15 +57,11 @@ export default function App() {
 
 
         <Modal animationType='fade' visible={modalVis} transparent={true} >
-          <PopUp name={selected.name} birthday={selected.birthday} occupation={selected.occupation}
+          <PopUp 
+          name={selected.name} birthday={selected.birthday} occupation={selected.occupation}
           status={selected.status} nickname={selected.nickname} portrayed={selected.portrayed} 
-          button={<TouchableOpacity onPress={() => setModalVis(!modalVis)} >
-            <View>
-            <Ionicons name="md-exit" size={44} color="#D5A30F" />
-            </View>
-          </TouchableOpacity>} 
+          modalVis={modalVis} setModalVis={setModalVis}
           />
-         
         </Modal>
 
 

@@ -3,7 +3,6 @@ export const SET_BREAKING_BAD = 'SET_BREAKING_BAD'
 
 let initialState = {
     characters: [],
-    fetched: false,
     selected: {}
 }
 

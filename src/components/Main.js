@@ -11,7 +11,9 @@ export default function Main() {
   const [modalVis, setModalVis] = useState(false)
 
   const selected = useSelector(state => state.selected)
+
   console.log("selected ", selected);
+  console.log("characters ", characters);
 
   const dispatch = useDispatch()
   useEffect(() => {

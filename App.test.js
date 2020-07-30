@@ -1,15 +1,12 @@
+import 'react-native';
 import App from './App';
-import React from 'react'
-import renderer from 'react-test-renderer'
+import React from 'react';
+import renderer from 'react-test-renderer';
 
 describe('<App />', () => {
-  it('has 1 child', () => {
+  it('match snap', () => {
     const tree = renderer.create(<App />).toJSON();
-    expect(tree.children.length).toBe(1);
+    expect(tree).toMatchSnapshot();
   });
 });
 
-it('renders correctly', () => {
-  const tree = renderer.create(<App />).toJSON();
-  expect(tree).toMatchSnapshot();
-});

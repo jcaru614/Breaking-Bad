@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 export default function PopUp(props) {
     return (
@@ -9,7 +9,7 @@ export default function PopUp(props) {
             <Text style={styles.text} >Status: {props.status}</Text>
             <Text style={styles.text} >Nickname: {props.nickname}</Text>
             <Text style={styles.text} >Nickname: {props.portrayed}</Text>
-            <Text style={styles.text} >Occupation: {props.occupation[0]} {",", props.occupation[1]}</Text>
+            {/* <Text style={styles.text} >Occupation: {props.occupation[0]} {",", props.occupation[1]}</Text> */}
 
           <TouchableOpacity onPress={() => props.setModalVis(!props.modalVis)} >
             <Ionicons name="md-exit" size={44} color="#D5A30F" />

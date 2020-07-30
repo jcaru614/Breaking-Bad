@@ -1,5 +1,5 @@
-export const GET_BREAKING_BAD = 'GET_BREAKING_BAD'
-export const SET_BREAKING_BAD = 'SET_BREAKING_BAD'
+import { GET_BREAKING_BAD } from './actions';
+import { SET_BREAKING_BAD } from './actions';
 
 let initialState = {
     characters: [],

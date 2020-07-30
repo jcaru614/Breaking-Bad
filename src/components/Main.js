@@ -3,14 +3,14 @@ import { StyleSheet, Modal, Text, TextInput, View, Image, ImageBackground, Scrol
 import axios from 'axios';
 import PopUp from './PopUp'
 import { useSelector, useDispatch, connect } from 'react-redux'
-import { GET_BREAKING_BAD, SET_BREAKING_BAD } from '../redux/reducer';
+import { GET_BREAKING_BAD, SET_BREAKING_BAD } from '../redux/actions';
 
 export default function Main() {
   const [characters, setCharacters] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [modalVis, setModalVis] = useState(false)
 
-  const selected = useSelector(state => state.selected)
+  const selected = useSelector(state => state.setBB.selected)
 
   console.log("selected ", selected);
   console.log("characters ", characters);

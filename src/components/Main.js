@@ -10,7 +10,7 @@ export default function Main() {
   const [searchField, setSearchField] = useState("");
   const [modalVis, setModalVis] = useState(false)
 
-  const selected = useSelector(state => state.setBB.selected)
+  const selected = useSelector(state => state.objBB.selected)
 
   console.log("selected ", selected);
   console.log("characters ", characters);

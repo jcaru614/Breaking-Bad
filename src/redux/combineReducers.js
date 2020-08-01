@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import setBB  from './reducer';
+import objBB  from './reducers/objReducer';
+import arrBB  from './reducers/arrReducer';
 
 export default combineReducers({
-  setBB
+  objBB,
+  arrBB 
 });

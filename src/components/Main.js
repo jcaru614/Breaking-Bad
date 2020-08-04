@@ -2,38 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Modal, Text, TextInput, View, Image, ImageBackground, ScrollView, TouchableHighlight, TouchableOpacity, SafeAreaView } from 'react-native';
 import axios from 'axios';
 import PopUp from './PopUp'
-import { useSelector, useDispatch, connect } from 'react-redux'
-import { GET_BREAKING_BAD, SET_BREAKING_BAD } from '../redux/actions';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 
-export default function Main() {
+function Main(props) {
   const [characters, setCharacters] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [modalVis, setModalVis] = useState(false)
 
-  const selected = useSelector(state => state.objBB.selected)
-
-  console.log("selected ", selected);
-  console.log("characters ", characters);
-
-  const dispatch = useDispatch()
   useEffect(() => {
     axios.get("https://www.breakingbadapi.com/api/characters")
       .then(res => setCharacters(res.data))
       .catch(err => console.log(err))
   }, [])
-
-  const setBreakingBad = (text) => {
-    axios.get(`https://www.breakingbadapi.com/api/characters?name=${text}`)
-      .then((res) => {
-        dispatch({
-          type: SET_BREAKING_BAD,
-          payload: res.data[0]
-        })
-        setModalVis(!modalVis)
-      })
-      .catch(err => console.log(err))
-  }
-
+  console.log("main selected ", props?.selected?.name);
   return (
     <ImageBackground style={styles.container} resizeMode={'stretch'}
       style={{ flex: 1 }} source={{ uri: 'https://github.com/bradtraversy/breaking-bad-cast/blob/master/src/img/bg.jpg?raw=true' }} >
@@ -51,9 +33,9 @@ export default function Main() {
         <ScrollView>
           {characters ?
             characters.filter(char => char.name.toLowerCase().includes(searchField.toLowerCase()))
-            .map((char, index) => {
+              .map((char, index) => {
                 return (
-                  <TouchableHighlight key={index} onPress={() => setBreakingBad(char.name)}>
+                  <TouchableHighlight key={index} onPress={() => props.setBreakingBad(char.name) && setModalVis(!modalVis)}>
                     <View>
                       <Image style={styles.poster} source={{ uri: char.img }} />
                       <Text style={styles.heading} >{char.name}</Text>
@@ -67,8 +49,9 @@ export default function Main() {
 
         <Modal animationType='fade' visible={modalVis} transparent={true} >
           <PopUp
-            name={selected.name} birthday={selected.birthday} occupation={selected.occupation}
-            status={selected.status} nickname={selected.nickname} portrayed={selected.portrayed}
+            name={props?.selected?.name} 
+            birthday={props?.selected?.birthday} occupation={props?.selected?.occupation}
+            status={props?.selected?.status} nickname={props?.selected?.nickname} portrayed={props?.selected?.portrayed}
             modalVis={modalVis} setModalVis={setModalVis}
           />
         </Modal>
@@ -78,6 +61,21 @@ export default function Main() {
     </ImageBackground>
   );
 }
+
+const mapStateToProps = state => {
+  console.log("selected mapStateToProps ", state.objBB.selected.selected)
+  return {
+    selected: state.objBB.selected.selected
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setBreakingBad: (text) => dispatch({type: "SET_BREAKING_BAD_REQUEST", text: text }) 
+  } 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
 const styles = StyleSheet.create({
   container: {
@@ -128,4 +126,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
 });
+
 

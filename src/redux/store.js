@@ -1,14 +1,17 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './combineReducers';
-import objSaga from './sagas/objSaga'
+import objSaga from './sagas/objSaga';
+import { all } from 'redux-saga/effects';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
-sagaMiddleware.run(objSaga);
+function* rootSaga() {
+    yield all([objSaga()])
+}
 
-const action = type => store.dispatch({type})
+sagaMiddleware.run(rootSaga);
 
-export default store;
+export default store; 

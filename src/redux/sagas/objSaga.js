@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const fetch = async (text) => {
     console.log("fetch text ", text);
-    // instead of return try making await axios a const
     return await axios.get(`https://www.breakingbadapi.com/api/characters?name=${text}`)
         .then((response) => {
             const data = response.data[0]

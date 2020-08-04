@@ -65,7 +65,7 @@ function Main(props) {
 const mapStateToProps = state => {
   console.log("selected mapStateToProps ", state.objBB.selected.selected)
   return {
-    selected: state.objBB.selected.selected
+    selected: state.objBB.selected.selected,
   }
 }
 

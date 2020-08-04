@@ -1,11 +1,7 @@
-import { SET_BREAKING_BAD_SUCCESS, SET_BREAKING_BAD_FAIL, setBreakingBadRequest } from '../actions';
+import { SET_BREAKING_BAD_SUCCESS, SET_BREAKING_BAD_FAIL } from '../actions';
 
 let initialState = {
     selected: {},
-    // either change modal logic to toggle if object is filled vs null
-    // or add a modalvis toggler here
-    // need one more case
-    modalVis: false,
     error: null
 }
 
